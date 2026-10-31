@@ -1,3 +1,4 @@
+# KR2: Skorobagatko
 import os
 import socket
 
@@ -14,18 +15,15 @@ r = redis.Redis(
     decode_responses=True,
 )
 
-
 @app.route("/health")
 def health():
     return "ok\n"
-
 
 @app.route("/")
 def index():
     hits = r.incr("hits")
     student = os.getenv("STUDENT", "unknown")
     return f"KR2 | {student} | container {socket.gethostname()} | hits: {hits}\n"
-
 
 @app.route("/whoami")
 def whoami():
